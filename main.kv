@@ -1,4 +1,8 @@
-
+<scrz>:
+    BoxLayout:
+                #pos_hint: {"center_y":1}
+        size_hint:1, 1
+        id: rcycle
 FloatLayout:
     
     canvas:
@@ -20,19 +24,17 @@ FloatLayout:
         BoxLayout:
             #pos_hint: {"center_y":1}
             size_hint:1,None
-            height: "70dp"
+            height: "60dp"
             orientation: "horizontal"
             id: bx
             canvas:
                 Color:
-                    rgba: 0, 0, 1, .4
+                    rgba: 0, 0, 1, .5
                 Rectangle:
                     pos: self.pos
                     size: self.size
-        BoxLayout:
-            #pos_hint: {"center_y":1}
-            size_hint:1, 1
-            id: rcycle
+        ScreenManager:
+            id: scrz_manager
 
                     
 
