@@ -5,6 +5,7 @@ from kivy.clock import mainthread
 from libs import Box
 from libs import RContainer
 from libs import Card
+from libs import Tab
 
 from threading import Thread
 from threading import Event
@@ -35,7 +36,8 @@ class Main(App):
                 sleep(.0001)
                 self.add(i, self.cont)
         Thread(target=a).start()
-        print(self.root.ids.bx.children)
+        print(self.root.ids.bar.children)
+        #self.root.ids.bar.scroll_to(self.root.ids.test)
     def on_stop(self):
         self.event.set()
     @mainthread

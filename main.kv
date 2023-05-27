@@ -1,6 +1,6 @@
 <scrz>:
+    name: "dd"
     BoxLayout:
-                #pos_hint: {"center_y":1}
         size_hint:1, 1
         id: rcycle
 FloatLayout:
@@ -21,18 +21,39 @@ FloatLayout:
     BoxLayout:
         orientation: "vertical"
         
-        BoxLayout:
-            #pos_hint: {"center_y":1}
+        ScrollView:
+            pos_hint: {'center_x': .5}
             size_hint:1,None
             height: "60dp"
             orientation: "horizontal"
-            id: bx
-            canvas:
+            do_scroll_x: True
+            id: bar
+            canvas.before:
                 Color:
                     rgba: 0, 0, 1, .5
                 Rectangle:
                     pos: self.pos
                     size: self.size
+            BoxLayout:
+                size_hint: None, 1
+                adaptive_width: True
+                width: self.minimum_width
+                pos_hint: {"center_x":.5}
+
+                id: bar_box
+                Tab:
+                Tab:
+                Tab:
+                    text: "fff"
+                Tab:
+                Tab:
+                Tab:
+                Tab:
+                Tab:
+                Tab:
+             
+
+
         ScreenManager:
             id: scrz_manager
 
