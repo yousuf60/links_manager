@@ -18,7 +18,7 @@ Builder.load_string("""
 """)
 
 
-class Card(F.BoxLayout):
+class Card(F.BoxLayout, F.ButtonBehavior):
 
     def __init__(self, *args, color = (), text = "", **kwargs):
         super().__init__(*args, **kwargs)
