@@ -1,54 +1,69 @@
+
+
 from kivy.app import App
 from kivy.factory import Factory as F
 from kivy.clock import mainthread
 
-from libs import Box
-from libs import RContainer
-from libs import Card
-from libs import Tab
+from libs import (Box, \
+                RContainer,\
+                 Card,\
+                  Tab,\
+                   DataManager,
+                   )
+# from libs import RContainer
+# from libs import Card
+# from libs import Tab
+# from libs import DataManager
 
 from threading import Thread
 from threading import Event
 import asyncio
 from time import sleep
+import os
 
 
 class scrz(F.Screen):pass
 
-class Main(App):
+
+class Main(App, DataManager):
     event = Event()
     cont = None
+    
     # def __init__(self,*args,**kwargs):
     #     super().__init__(*args,**kwargs)
         
     def on_start(self):
 
-
         def a():
-            lenth = 100
-            for x in  range(5):
+            for x in  self.files_list():
+                print(x)
+                file = x
+                x = os.path.splitext(file)[0]
+
                 self.add_tab(x)
                 self.add_container(x)
+                
+
                 while not self.cont:
-                    sleep(.001) 
+                    sleep(.02) 
                     if self.event.is_set():
                         return
-                print(self.cont)
-                for i in range(lenth):
-                    #sleep(1)
+
+                for i in self.read(file):
                     if self.event.is_set():
                         return
                     sleep(.0001)
-                    self.add_card(i, self.cont)
+                    self.add_card(tuple(i), self.cont)
+
                 self.cont = None
+
         Thread(target=a).start()
-        # a()
         #self.root.ids.bar.scroll_to(self.root.ids.test)
     def on_stop(self):
         self.event.set()
     @mainthread
     def add_card(self, i, widget):
-        widget.add(Card(text = str(i)))
+        widget.add(Card(i[0], text = str(i[1])))
     @mainthread
     def add_widget1(self, widget, child):
         widget.add_widget(child)
@@ -64,6 +79,8 @@ class Main(App):
         scr=scrz(name = str(x))
         self.add_widget1(self.root.ids.scrz_manager, scr)
         scr.add_widget(self.cont)
-        
+
+
 main=Main()
 main.run()
+

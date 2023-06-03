@@ -18,11 +18,15 @@ Builder.load_string("""
 """)
 
 
-class Card(F.BoxLayout, F.ButtonBehavior):
+class Card(F.ButtonBehavior, F.BoxLayout):
 
-    def __init__(self, *args, color = (), text = "", **kwargs):
+    def __init__(self,link, color = (), text = "", *args, **kwargs):
         super().__init__(*args, **kwargs)
         if color:
             self.ids.lbl.color = color
         if text:
             self.ids.lbl.text = text
+        self.link = link
+
+    def on_press(self):
+        print(self.link)

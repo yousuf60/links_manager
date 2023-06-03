@@ -4,9 +4,11 @@ from kivy.factory import Factory as F
 Builder.load_string("""
 <Tab>:
     size_hint: None, 1
-    width: "50dp"
-    padding: "10dp"
+    adaptive_width: True
+    width: self.minimum_width
+    padding: dp(len(self.text) * 5), 0
     Label:
+        id: lbl
         text: self.parent.text 
         color: 1, 1, 1, 1
 """)
