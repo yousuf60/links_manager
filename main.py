@@ -10,10 +10,6 @@ from libs import (Box, \
                   Tab,\
                    DataManager,
                    )
-# from libs import RContainer
-# from libs import Card
-# from libs import Tab
-# from libs import DataManager
 
 from threading import Thread
 from threading import Event
@@ -28,7 +24,7 @@ class scrz(F.Screen):pass
 class Main(App, DataManager):
     event = Event()
     cont = None
-    
+    last_colored_tab = None
     # def __init__(self,*args,**kwargs):
     #     super().__init__(*args,**kwargs)
         
@@ -56,7 +52,8 @@ class Main(App, DataManager):
                     self.add_card(tuple(i), self.cont)
 
                 self.cont = None
-
+            self.last_colored_tab = self.root.ids.bar_box.children[-1]
+            self.last_colored_tab.bakground_coloring()
         Thread(target=a).start()
         #self.root.ids.bar.scroll_to(self.root.ids.test)
     def on_stop(self):
@@ -70,16 +67,17 @@ class Main(App, DataManager):
     @mainthread
     def add_tab(self, name):
         print(name, type(name))
-        tb = Tab(text = str(name))
+        tb = Tab(text = str(name), app = self)
         self.root.ids.bar_box.add_widget(tb)
     @mainthread
     def add_container(self, x):
         self.cont = RContainer()
-        print(self.cont, x)
+        # print(self.cont, x)
         scr=scrz(name = str(x))
+        scr.on_pre_leave = lambda :self.last_colored_tab.bakground_uncoloring()
         self.add_widget1(self.root.ids.scrz_manager, scr)
         scr.add_widget(self.cont)
-
+        
 
 main=Main()
 main.run()
