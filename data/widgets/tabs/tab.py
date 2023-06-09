@@ -3,6 +3,7 @@ from kivy.properties import StringProperty
 from kivy.properties import ListProperty
 from kivy.factory import Factory as F
 from kivy.animation  import Animation
+
 Builder.load_string("""
 <Tab>:
     size_hint: None, 1
@@ -36,7 +37,7 @@ class Tab(F.ButtonBehavior, F.BoxLayout):
             self.app = app
     def on_press(self):
         #scroll view widget
-        scroller =self.parent.parent 
+        scroller =self.parent.parent
         #root float widget
         root = scroller.parent.parent
 

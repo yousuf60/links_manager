@@ -4,11 +4,11 @@ from kivy.app import App
 from kivy.factory import Factory as F
 from kivy.clock import mainthread
 
-from libs import (Box, \
-                RContainer,\
-                 Card,\
-                  Tab,\
-                   DataManager,
+from libs import (Box,  
+                RContainer,
+                 Card,
+                  Tab,
+                   DataManager, #treating with the csv files
                    )
 
 from threading import Thread
@@ -39,7 +39,7 @@ class Main(App, DataManager):
                 self.add_tab(x)
                 self.add_container(x)
                 
-
+                #waiting the contaner to be added
                 while not self.cont:
                     sleep(.02) 
                     if self.event.is_set():
@@ -72,8 +72,7 @@ class Main(App, DataManager):
     @mainthread
     def add_container(self, x):
         self.cont = RContainer()
-        # print(self.cont, x)
-        scr=scrz(name = str(x))
+        scr = scrz(name = str(x))
         scr.on_pre_leave = lambda :self.last_colored_tab.bakground_uncoloring()
         self.add_widget1(self.root.ids.scrz_manager, scr)
         scr.add_widget(self.cont)

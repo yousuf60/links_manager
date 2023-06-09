@@ -17,3 +17,11 @@ class Box(BoxLayout):
     exists = True
     def ex(self):
         self.exists = False
+    def remove(self, child):
+        
+        if child in self.children:
+            self.remove_widget(child)
+        if not self.children:
+            self.parent.remove_widget(self)
+
+        

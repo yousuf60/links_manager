@@ -1,10 +1,13 @@
+#: import Window kivy.core.window.Window
+
 <scrz>:
    
     BoxLayout:
         size_hint:1, 1
         id: rcycle
+
+
 FloatLayout:
-    
     canvas:
         Color:
             rgba: 1, 1, 1, 1
@@ -22,34 +25,34 @@ FloatLayout:
         orientation: "vertical"
         
         ScrollView:
-            pos_hint: {'center_x': .5}
-            size_hint:1,None
+            pos_hint: {'center_x':.5}
+            size_hint: 1, None
             height: "60dp"
             orientation: "horizontal"
             do_scroll_x: True
             id: bar
             canvas.before:
                 Color:
-                    rgba: 0, 0, 1, .5
+                    rgba: [1, 0, 0, .4]
                 Rectangle:
                     pos: self.pos
-                    size: self.size
+                    size: self.size[0], self.size[1]
             BoxLayout:
                 size_hint: None, 1
                 adaptive_width: True
                 width: self.minimum_width
                 pos_hint: {"center_x":.5}
-
                 id: bar_box
-
+        
 
 
         ScreenManager:
             id: scrz_manager
-
-                    
-
-           
+    FloatLayout:
+        AddTab
+        AddCard
+     
+                
 
 
 

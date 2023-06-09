@@ -1,3 +1,4 @@
+# we should make Box contain only two cards
 from kivy.lang import Builder
 from kivy.uix.recycleview import RecycleView
 from kivy.uix.widget import Widget
@@ -32,6 +33,7 @@ class RContainer(RecycleView):
 
         if not child.exists:
             self.make_child(w)
+            
         else:
             if child.wgs == 2:
                 child.ex()
