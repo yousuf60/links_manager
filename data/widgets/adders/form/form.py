@@ -39,12 +39,17 @@ Builder.load_string("""
     MyInput:
         id: ddd
     BoxLayout:
-        spacing: dp(70)
-        MyButton:
-            text: "add"
-            on_press: print("sss")
-        MyButton:
-            text: "close"
+        spacing: dp(50)
+        FloatLayout:
+            size_hint: .5, 1
+            MyButton:
+                text: "add"
+                on_press: print("sss")
+
+        FloatLayout:
+            size_hint: .5, 1
+            MyButton:
+                text: "close"
             
             
   
@@ -54,6 +59,9 @@ Builder.load_string("""
 
 class MyButton(F.ButtonBehavior, F.Label):
     color = F.ListProperty([0, 0, 0, 1])
+    size_hint = F.ListProperty([None, 1])
+    width = F.NumericProperty(50)
+    pos_hint = {"center_x": .5, "center_y": .5}
 class MyInput(F.TextInput):pass
 
 class Form(F.ButtonBehavior, F.BoxLayout):pass
