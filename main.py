@@ -45,11 +45,11 @@ class Main(App, DataManager):
                     if self.event.is_set():
                         return
 
-                for i in self.read(file):
+                for line in self.read(file):
                     if self.event.is_set():
                         return
-                    sleep(.0001)
-                    self.add_card(tuple(i), self.cont)
+                    sleep(.001)
+                    self.add_card(tuple(line), self.cont)
 
                 self.cont = None
             self.last_colored_tab = self.root.ids.bar_box.children[-1]
