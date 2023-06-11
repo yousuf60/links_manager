@@ -6,10 +6,12 @@ from kivy.clock import mainthread
 
 from libs import (Box,  
                 RContainer,
-                 Card,
-                  Tab,
-                   DataManager, #treating with the csv files
-                   )
+                Card,
+                Tab,
+                DataManager, #treating with the csv files       
+                FormTab,
+                FormCard                         
+)
 
 from threading import Thread
 from threading import Event
@@ -29,8 +31,9 @@ class Main(App, DataManager):
     #     super().__init__(*args,**kwargs)
         
     def on_start(self):
-
+        
         def a():
+            self.add_adder()
             for x in  self.files_list():
                 print(x)
                 file = x
@@ -76,7 +79,10 @@ class Main(App, DataManager):
         scr.on_pre_leave = lambda :self.last_colored_tab.bakground_uncoloring()
         self.add_widget1(self.root.ids.scrz_manager, scr)
         scr.add_widget(self.cont)
-        
+    
+    @mainthread
+    def add_adder(self):
+        self.root.add_widget(FormTab())
 
 main=Main()
 main.run()

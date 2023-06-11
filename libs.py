@@ -5,7 +5,8 @@ from data.widgets.tabs import Tab
 from data.widgets.adders import (
     AddTab,
     AddCard,
-    Form
+    FormTab,
+    FormCard,
 )
 
 from data.data_lib import DataManager

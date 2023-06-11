@@ -17,15 +17,15 @@ Builder.load_string("""
     background_color: (0, 0, 1, .7)
     multiline: False
     pos_hint: {"center_x": .5}
-
-<Form>:
+    input_type: "text"
+<BaseForm>:
     size_hint: .8, None
     pos_hint: {"center_x": .5, "center_y": .5}
     orientation: "vertical"
     spacing: dp(10)
     adaptive_height:True
     height: self.minimum_height + 30
-
+    
 
     canvas.before:
         Color:
@@ -36,20 +36,23 @@ Builder.load_string("""
             radius: [0, 0, 15, 15]
     MyInput:
         hint_text: "wqffw"
+        id: first_input
     MyInput:
-        id: ddd
+        id: second_input
+
     BoxLayout:
         spacing: dp(50)
         FloatLayout:
             size_hint: .5, 1
             MyButton:
                 text: "add"
-                on_press: print("sss")
+                on_press: root.add()
 
         FloatLayout:
             size_hint: .5, 1
             MyButton:
                 text: "close"
+                on_press: root.parent.remove_widget(root)
             
             
   
@@ -64,4 +67,14 @@ class MyButton(F.ButtonBehavior, F.Label):
     pos_hint = {"center_x": .5, "center_y": .5}
 class MyInput(F.TextInput):pass
 
-class Form(F.ButtonBehavior, F.BoxLayout):pass
+class BaseForm(F.ButtonBehavior, F.BoxLayout):
+    def add(self):print("dd")
+
+class FormTab(BaseForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.remove_widget(self.ids.second_input)
+    def add(self):
+        print("tab")
+
+class FormCard(BaseForm):pass

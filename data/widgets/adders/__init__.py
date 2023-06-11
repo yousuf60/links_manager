@@ -2,4 +2,7 @@ from .adder import (
     AddTab,
     AddCard
 )
-from .form import Form
+from .form import (
+    FormTab,
+    FormCard                         
+)

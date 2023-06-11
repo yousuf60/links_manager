@@ -33,6 +33,7 @@ class BaseAdder(F.ButtonBehavior, F.FloatLayout):
 
 class AddTab(BaseAdder):
     color = [1, 0, 0, 1]
+
     def on_press(self):
         print('sada')
 
