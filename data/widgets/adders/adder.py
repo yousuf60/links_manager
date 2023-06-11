@@ -1,5 +1,12 @@
 from kivy.lang import Builder
 from kivy.factory import Factory as F
+
+from .form import (
+    FormTab,
+    FormCard                         
+)
+
+
 Builder.load_string("""
 
 <BaseAdder>:
@@ -27,15 +34,27 @@ Builder.load_string("""
 
 """)
 
+
 class BaseAdder(F.ButtonBehavior, F.FloatLayout):
     # xy of size >>line 8
     xy = F.NumericProperty(35)
+
 
 class AddTab(BaseAdder):
     color = [1, 0, 0, 1]
 
     def on_press(self):
-        print('sada')
+        root = self.parent 
+        if not root.adder_here:
+            root.add_widget(FormTab())
+            #to not add tow widgets in the same time by the user
+            root.adder_here = True
 
 class AddCard(BaseAdder):
     color = [0, 0,1, 1]
+
+    def on_press(self):
+        root = self.parent 
+        if not root.adder_here:
+            root.add_widget(FormCard())
+            root.adder_here = True

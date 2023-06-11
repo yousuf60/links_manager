@@ -33,7 +33,7 @@ class Main(App, DataManager):
     def on_start(self):
         
         def a():
-            self.add_adder()
+            
             for x in  self.files_list():
                 print(x)
                 file = x
@@ -80,10 +80,7 @@ class Main(App, DataManager):
         self.add_widget1(self.root.ids.scrz_manager, scr)
         scr.add_widget(self.cont)
     
-    @mainthread
-    def add_adder(self):
-        self.root.add_widget(FormTab())
-
+ 
 main=Main()
 main.run()
 

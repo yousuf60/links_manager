@@ -52,7 +52,8 @@ Builder.load_string("""
             size_hint: .5, 1
             MyButton:
                 text: "close"
-                on_press: root.parent.remove_widget(root)
+                on_press: root.close()
+                
             
             
   
@@ -65,15 +66,20 @@ class MyButton(F.ButtonBehavior, F.Label):
     size_hint = F.ListProperty([None, 1])
     width = F.NumericProperty(50)
     pos_hint = {"center_x": .5, "center_y": .5}
+    
 class MyInput(F.TextInput):pass
 
 class BaseForm(F.ButtonBehavior, F.BoxLayout):
     def add(self):print("dd")
 
+    def close(self):
+        self.parent.adder_here = False
+        self.parent.remove_widget(self)
 class FormTab(BaseForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.remove_widget(self.ids.second_input)
+
     def add(self):
         print("tab")
 

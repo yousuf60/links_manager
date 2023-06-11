@@ -1,8 +1,6 @@
 from .adder import (
     AddTab,
-    AddCard
-)
-from .form import (
+    AddCard,
     FormTab,
-    FormCard                         
+    FormCard
 )
