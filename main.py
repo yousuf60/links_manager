@@ -31,7 +31,6 @@ class Main(App, DataManager):
     #     super().__init__(*args,**kwargs)
         
     def on_start(self):
-        
         def a():
             
             for x in  self.files_list():
@@ -76,6 +75,7 @@ class Main(App, DataManager):
     def add_container(self, x):
         self.cont = RContainer()
         scr = scrz(name = str(x))
+        scr.container = self.cont
         scr.on_pre_leave = lambda :self.last_colored_tab.bakground_uncoloring()
         self.add_widget1(self.root.ids.scrz_manager, scr)
         scr.add_widget(self.cont)

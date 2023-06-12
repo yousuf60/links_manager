@@ -1,6 +1,8 @@
 import csv
 import os
 
+
+
 DT_PATH = "data/tabs/"
 
 
@@ -11,11 +13,11 @@ class DataManager:
             for i in data:
                 yield i
     
-    def writer(self, file, dt: list = None, mode: str = "w"): # dt [link, name]
+    def writer(self, file, dt: tuple = (), mode: str = "w"): # dt [link, name]
         with open(DT_PATH + file, mode, newline = "") as f :
             data = csv.writer(f)
             if dt:
-                data.writerow(dt)
+                data.writerows(dt)
 
     def write(self, *args, **kwargs):
         self.writer(mode = "w",*args, **kwargs)
@@ -34,9 +36,11 @@ if __name__ == "__main__" :
 
     d = DataManager()
     d.files_list()
-    d.add("1.csv", ["https://www.google.com", "google"])
 
-    for i in d.read("1.csv"):
+    d.write("1.csv", (["https://www.google.com", "golaalgl"],))
+    d.add("1.csv", [["https://www.google.com", "google"],])
+
+    for i in d.read("2.csv"):
         print(i)
 
 

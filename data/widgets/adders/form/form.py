@@ -1,9 +1,13 @@
 """
     putting information of the tab name or link cards
 """
-
+from kivy.app import App   
 from kivy.lang import Builder
 from kivy.factory import Factory as F
+
+from ....data_lib import DataManager
+
+data = DataManager()
 
 Builder.load_string("""
 
@@ -34,11 +38,14 @@ Builder.load_string("""
             size: self.size
             pos: self.pos
             radius: [0, 0, 15, 15]
+
     MyInput:
-        hint_text: "wqffw"
+        hint_text: "name"
         id: first_input
     MyInput:
+        hint_text: "link"
         id: second_input
+
 
     BoxLayout:
         spacing: dp(50)
@@ -70,11 +77,10 @@ class MyButton(F.ButtonBehavior, F.Label):
 class MyInput(F.TextInput):pass
 
 class BaseForm(F.ButtonBehavior, F.BoxLayout):
-    def add(self):print("dd")
-
     def close(self):
         self.parent.adder_here = False
         self.parent.remove_widget(self)
+
 class FormTab(BaseForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -83,4 +89,17 @@ class FormTab(BaseForm):
     def add(self):
         print("tab")
 
-class FormCard(BaseForm):pass
+class FormCard(BaseForm):
+    def add(self):
+
+        card_name = self.ids.first_input.text
+        link = self.ids.second_input.text
+        screen_manager = self.parent.parent.ids.scrz_manager
+        current_screen = screen_manager.current
+        app = App.get_running_app()
+        if all([link, card_name, current_screen]):
+            data.add(current_screen + ".csv", ((link, card_name), ))
+            self.close()
+            container = screen_manager.get_screen(current_screen).container
+
+            app.add_card((link, card_name), container)

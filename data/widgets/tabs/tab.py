@@ -9,7 +9,7 @@ Builder.load_string("""
     size_hint: None, 1
     adaptive_width: True
     width: self.minimum_width
-    padding: dp(len(self.text) * 5), 0
+    padding: dp(len(self.text) * 5 + 15), 0
     canvas:
         Color:
             rgba: self.color
