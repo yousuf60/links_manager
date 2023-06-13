@@ -3,11 +3,15 @@
 """
 from kivy.app import App   
 from kivy.lang import Builder
+from kivy.clock import mainthread
 from kivy.factory import Factory as F
+
+from threading import Thread
+from time import sleep
 
 from ....data_lib import DataManager
 
-data = DataManager()
+data_manager = DataManager()
 
 Builder.load_string("""
 
@@ -87,19 +91,40 @@ class FormTab(BaseForm):
         self.remove_widget(self.ids.second_input)
 
     def add(self):
-        print("tab")
+        tab_name = self.ids.first_input.text
 
+        if tab_name:
+            app = App.get_running_app()
+            if self.tab_text_checker(tab_name, app):
+                return
+            app.add_container(tab_name)
+            app.add_tab(tab_name)
+            data_manager.make_file(tab_name)
+
+            self.close()
+
+
+
+    def tab_text_checker(self, tab_name, app):
+        for tab in app.root.ids.bar_box.children:
+            if tab.text == tab_name:
+                return True
+        return False
 class FormCard(BaseForm):
     def add(self):
-
         card_name = self.ids.first_input.text
         link = self.ids.second_input.text
         screen_manager = self.parent.parent.ids.scrz_manager
         current_screen = screen_manager.current
-        app = App.get_running_app()
+        
         if all([link, card_name, current_screen]):
-            data.add(current_screen + ".csv", ((link, card_name), ))
+            if self.data_checker(link, card_name, current_screen):
+                return 
+            app = App.get_running_app()
+            data_manager.add(current_screen + ".csv", ((link, card_name), ))
             self.close()
             container = screen_manager.get_screen(current_screen).container
-
             app.add_card((link, card_name), container)
+    def data_checker(self, link, name, file):
+        if [link, name] in data_manager.read(file + ".csv"):
+            return True 

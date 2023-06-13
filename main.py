@@ -1,5 +1,3 @@
-
-
 from kivy.app import App
 from kivy.factory import Factory as F
 from kivy.clock import mainthread
@@ -27,6 +25,7 @@ class Main(App, DataManager):
     event = Event()
     cont = None
     last_colored_tab = None
+    new_tab = None
     # def __init__(self,*args,**kwargs):
     #     super().__init__(*args,**kwargs)
         
@@ -37,20 +36,16 @@ class Main(App, DataManager):
                 print(x)
                 file = x
                 x = os.path.splitext(file)[0]
-
                 self.add_tab(x)
                 self.add_container(x)
                 
-                #waiting the contaner to be added
-                while not self.cont:
-                    sleep(.02) 
-                    if self.event.is_set():
-                        return
-
+                #waiting the container to be added
+                self.wait_container()
+                print(self.cont)
                 for line in self.read(file):
                     if self.event.is_set():
                         return
-                    sleep(.001)
+                    sleep(.005)
                     self.add_card(tuple(line), self.cont)
 
                 self.cont = None
@@ -76,9 +71,16 @@ class Main(App, DataManager):
         self.cont = RContainer()
         scr = scrz(name = str(x))
         scr.container = self.cont
+        scr.on_enter = lambda :self.new_tab.bakground_coloring() if self.new_tab else print("")
         scr.on_pre_leave = lambda :self.last_colored_tab.bakground_uncoloring()
         self.add_widget1(self.root.ids.scrz_manager, scr)
         scr.add_widget(self.cont)
+    
+    def wait_container(self):
+        while not self.cont:
+            sleep(.05) 
+            if self.event.is_set():
+                return
     
  
 main=Main()

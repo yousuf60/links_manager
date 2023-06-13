@@ -1,10 +1,14 @@
+from kivy.app import App
 from kivy.lang import Builder
 from kivy.factory import Factory as F
 from kivy.clock import mainthread
 
-from time import time
-from threading import Thread 
-# from threading import Event 
+from webbrowser import open
+
+from ...data_lib import DataManager
+from ..long_press import LongPress
+
+data_manager = DataManager()
 
 Builder.load_string("""
 <Card>:
@@ -24,40 +28,29 @@ Builder.load_string("""
 """)
 
 
-class Card(F.ButtonBehavior, F.BoxLayout):
-    thr_event = False
-    press_timeout = .3
-    press_long = 0
+class Card(F.ButtonBehavior, F.BoxLayout, LongPress):
+
     def __init__(self,link, color = (), text = "", *args, **kwargs):
         super().__init__(*args, **kwargs)
         if color:
             self.ids.lbl.color = color
         if text:
-            self.ids.lbl.text = text
+            self.ids.lbl.text = self.text = text
         self.link = link
-        
 
-    def on_press(self):
-        print(self.thr_event)
-        self.pressed = time()
-        pressed_thread = Thread(target = self.still_touched)
-        pressed_thread.start()
     
-    def still_touched(self):
-        while not self.thr_event:
-            self.press_long = time() - self.pressed
-            if self.press_long >= self.press_timeout:
-                self.remove_self()
-                break
-                  
+    def on_press(self):
+        self.pressed_btn()
 
-        self.thr_event = False
-        
     def on_release(self):
-        self.thr_event = True
-        if self.press_long < self.press_timeout:
-            print(self.link)
+        if self.on_release_limit():
+            open(self.link)
 
     @mainthread
     def remove_self(self):
         self.parent.remove(self)
+    def delete_data(self):
+        app = App.get_running_app()
+        file = app.root.ids.scrz_manager.current + ".csv"
+        data_to_delete = (file, self.link, self.text)
+        data_manager - data_to_delete
