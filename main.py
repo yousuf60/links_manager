@@ -1,7 +1,7 @@
 import os
 #https://kivy.org/doc/stable/guide/environment.html
-os.environ['KIVY_IMAGE'] = 'pil,sdl2'
-
+os.environ["KIVY_IMAGE"] = "pil,sdl2"
+os.environ["KIVY_WINDOW"] = "sdl2"
 from kivy.app import App
 from kivy.factory import Factory as F
 from kivy.clock import mainthread
