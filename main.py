@@ -1,3 +1,7 @@
+import os
+#https://kivy.org/doc/stable/guide/environment.html
+os.environ['KIVY_IMAGE'] = 'pil,sdl2'
+
 from kivy.app import App
 from kivy.factory import Factory as F
 from kivy.clock import mainthread
@@ -15,7 +19,6 @@ from threading import Thread
 from threading import Event
 import asyncio
 from time import sleep
-import os
 
 
 the_copy_directory = "data/tabs/copy"

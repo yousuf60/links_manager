@@ -17,8 +17,9 @@ FloatLayout:
             pos: self.pos
             size: self.size
     Image:
-        size_hint:2, 2
-        #size: root.width+500 ,root.height+1000
+        # size_hint:2, 2
+        size_hint: None, None
+        size: root.width+500 ,root.height+1000
         source: "data/pic/image.png"
         pos_hint: {"center_x":.5, "center_y":.5}
     BoxLayout:
