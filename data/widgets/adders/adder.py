@@ -34,7 +34,7 @@ Builder.load_string("""
 
 
 class BaseAdder(F.ButtonBehavior, F.FloatLayout):
-    # xy of size >>line 8
+    # xy of size >>line 15
     xy = F.NumericProperty(35)
     
 
