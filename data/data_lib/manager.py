@@ -39,7 +39,8 @@ class DataManager:
     
     def files_list(self):
         listdir = os.listdir(DT_PATH)
-        listdir.remove("copy")
+        if "copy" in listdir:
+            listdir.remove("copy")
         print(listdir)
         return sorted(listdir ,
          key = lambda x:os.path.getctime(DT_PATH + x)) #[::-1]

@@ -18,6 +18,11 @@ from time import sleep
 import os
 
 
+the_copy_directory = "data/tabs/copy"
+if not os.path.exists(the_copy_directory):
+    os.mkdir(the_copy_directory)
+del the_copy_directory
+
 class scrz(F.Screen):pass
 
 

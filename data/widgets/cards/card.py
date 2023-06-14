@@ -25,7 +25,6 @@ Builder.load_string("""
     Label:
         id: lbl
         text: ""
-        padding: "5dp"
 """)
 
 
