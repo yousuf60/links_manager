@@ -1,5 +1,7 @@
 from threading import Thread 
 from time import time
+
+
 class LongPress:
     #to make sure to break the thread
     untouched = False

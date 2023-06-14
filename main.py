@@ -25,15 +25,13 @@ class Main(App, DataManager):
     event = Event()
     cont = None
     last_colored_tab = None
+    # important when we add tab if the app is empty
     new_tab = None
-    # def __init__(self,*args,**kwargs):
-    #     super().__init__(*args,**kwargs)
-        
     def on_start(self):
         def a():
             
             for x in  self.files_list():
-                print(x)
+                # print(x)
                 file = x
                 x = os.path.splitext(file)[0]
                 self.add_tab(x)
@@ -41,7 +39,7 @@ class Main(App, DataManager):
                 
                 #waiting the container to be added
                 self.wait_container()
-                print(self.cont)
+                # print(self.cont)
                 for line in self.read(file):
                     if self.event.is_set():
                         return
@@ -70,7 +68,7 @@ class Main(App, DataManager):
         self.cont = RContainer()
         scr = scrz(name = str(x))
         scr.container = self.cont
-        scr.on_enter = lambda :self.new_tab.bakground_coloring() if self.new_tab else print("")
+        scr.on_enter = lambda :self.new_tab.bakground_coloring() if self.new_tab else None
         scr.on_pre_leave = lambda :self.last_colored_tab.bakground_uncoloring()
         self.add_widget1(self.root.ids.scrz_manager, scr)
         scr.add_widget(self.cont)

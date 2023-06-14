@@ -27,6 +27,7 @@ Builder.load_string("""
     multiline: False
     pos_hint: {"center_x": .5}
     input_type: "text"
+    
 <BaseForm>:
     size_hint: .8, None
     pos_hint: {"center_x": .5, "center_y": .5}

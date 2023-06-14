@@ -42,10 +42,11 @@ class DataManager:
         listdir.remove("copy")
         print(listdir)
         return sorted(listdir ,
-         key = lambda x:os.path.getmtime(DT_PATH + x))[::-1]
+         key = lambda x:os.path.getmtime(DT_PATH + x)) #[::-1]
 
     def delete_file(self, file):
         os.remove(DT_PATH + file)
+
     def make_file(self, file_name):
         with open(DT_PATH + file_name + ".csv", "w") as f:
             f.write("")
@@ -70,7 +71,7 @@ if __name__ == "__main__" :
     d = DataManager()
     d.files_list()
 
-    d.write("1.csv", (["https://www.google.com", "golaalgl"],))
+    #d.write("1.csv", (["https://www.google.com", "golaalgl"],))
     d.add("1.csv", [["https://www.google.com", "google"],])
 
     for i in d.read("2.csv"):
