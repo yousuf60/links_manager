@@ -1,6 +1,6 @@
 from kivy.lang import Builder
 from kivy.factory import Factory as F
-
+from kivy.core.window import Window
 from .form import (
     FormTab,
     FormCard                         
@@ -28,9 +28,7 @@ Builder.load_string("""
         pos: root.pos
         size_hint: None, None
         size: dp(20), dp(20)
-        
-<AddTab>:
-    y: Window.size[1] - 80
+    
 
 """)
 
@@ -38,11 +36,11 @@ Builder.load_string("""
 class BaseAdder(F.ButtonBehavior, F.FloatLayout):
     # xy of size >>line 8
     xy = F.NumericProperty(35)
-
+    
 
 class AddTab(BaseAdder):
     color = [1, 0, 0, 1]
-
+    y = F.NumericProperty(Window.height - 80)
     def on_press(self):
         root = self.parent 
         if not root.adder_here:
