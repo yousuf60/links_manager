@@ -47,6 +47,7 @@ class RContainer(RecycleView):
         box = Box()
         box.add_widget(w)
         box.wgs += 1 
+        
         self.lst.add_widget(box, index = -1)
                
     

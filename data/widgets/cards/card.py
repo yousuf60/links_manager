@@ -21,6 +21,7 @@ Builder.load_string("""
         Rectangle:
             pos: self.pos
             size: self.size
+    
     Label:
         id: lbl
         text: ""
@@ -37,6 +38,7 @@ class Card(F.ButtonBehavior, F.BoxLayout, LongPress):
         if text:
             self.ids.lbl.text = self.text = text
         self.link = link
+        print(len(self.text))
 
     
     def on_press(self):

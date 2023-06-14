@@ -52,7 +52,6 @@ class Main(App, DataManager):
             self.last_colored_tab = self.root.ids.bar_box.children[-1]
             self.last_colored_tab.bakground_coloring()
         Thread(target=a).start()
-        #self.root.ids.bar.scroll_to(self.root.ids.test)
     def on_stop(self):
         self.event.set()
     @mainthread

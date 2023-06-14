@@ -5,7 +5,8 @@ from kivy.app import App
 from kivy.lang import Builder
 from kivy.clock import mainthread
 from kivy.factory import Factory as F
-
+from kivy.core.window import Window
+from kivy.properties import StringProperty
 from threading import Thread
 from time import sleep
 
@@ -44,10 +45,11 @@ Builder.load_string("""
             radius: [0, 0, 15, 15]
 
     MyInput:
-        hint_text: "name"
+        hint_text: root.first_input_hint_text
+        foreground_color: root.first_input_foreground_color
         id: first_input
     MyInput:
-        hint_text: "link"
+        hint_text: root.second_input_hint_text
         id: second_input
 
 
@@ -67,9 +69,12 @@ Builder.load_string("""
                 
             
             
-  
+<FormCard@BaseForm>:
+    first_input_hint_text: "Name: " + str(int(Window.width) //19) + " character"
+    first_input_foreground_color: (1, 1, 1, 1) if len(root.ids.first_input.text) <= int(Window.width) //19 else (1, 0, 0, 1)
 
-
+<TabCard@BaseForm>:
+    first_input_foreground_color: (1, 1, 1, 1)
 """)
 
 class MyButton(F.ButtonBehavior, F.Label):
@@ -81,6 +86,9 @@ class MyButton(F.ButtonBehavior, F.Label):
 class MyInput(F.TextInput):pass
 
 class BaseForm(F.ButtonBehavior, F.BoxLayout):
+    second_input_hint_text = StringProperty("Link")
+    first_input_hint_text = StringProperty("Name")
+    first_input_foreground_color = F.ListProperty([1, 1, 1, 1])
     def close(self):
         self.parent.adder_here = False
         self.parent.remove_widget(self)
@@ -111,13 +119,19 @@ class FormTab(BaseForm):
                 return True
         return False
 class FormCard(BaseForm):
+    # first_input_hint_text = StringProperty("Name: " + str(int(Window.width) //19) + " character")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # self.ids.first_input.hint_text = 
     def add(self):
         card_name = self.ids.first_input.text
         link = self.ids.second_input.text
         screen_manager = self.parent.parent.ids.scrz_manager
         current_screen = screen_manager.current
-        
-        if all([link, card_name, current_screen]):
+        card_text_length = int(Window.width) //19
+        is_right_limit = len(card_name) <= card_text_length
+        if all([link, card_name, current_screen, is_right_limit]):
             if self.data_checker(link, card_name, current_screen):
                 return 
             app = App.get_running_app()
