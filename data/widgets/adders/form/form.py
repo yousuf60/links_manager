@@ -83,7 +83,7 @@ Builder.load_string("""
 class MyButton(F.ButtonBehavior, F.Label):
     color = F.ListProperty([0, 0, 0, 1])
     size_hint = F.ListProperty([None, 1])
-    width = F.NumericProperty(50)
+    width = F.NumericProperty(60)
     
     
 class MyInput(F.TextInput):pass
