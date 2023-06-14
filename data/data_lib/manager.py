@@ -42,7 +42,7 @@ class DataManager:
         listdir.remove("copy")
         print(listdir)
         return sorted(listdir ,
-         key = lambda x:os.path.getmtime(DT_PATH + x)) #[::-1]
+         key = lambda x:os.path.getctime(DT_PATH + x)) #[::-1]
 
     def delete_file(self, file):
         os.remove(DT_PATH + file)
