@@ -41,9 +41,12 @@ class DataManager:
         listdir = os.listdir(DT_PATH)
         if "copy" in listdir:
             listdir.remove("copy")
+        if "files" in listdir:
+            listdir.remove("files")
         print(listdir)
-        return sorted(listdir ,
-         key = lambda x:os.path.getctime(DT_PATH + x)) #[::-1]
+        return listdir
+        # sorted(listdir ,
+        #  key = lambda x:os.path.getctime(DT_PATH + x))[::-1]
 
     def delete_file(self, file):
         os.remove(DT_PATH + file)
@@ -55,9 +58,10 @@ class DataManager:
     def __sub__(self, data):
         original_file = data[0]
         copy = "copy/" + original_file
-        data_to_avoid = list(data[1:])
+        
+        data_to_avoid = data[1]
         self.clear_file(copy)
-
+        
         for line in self.read(original_file):
             if line != data_to_avoid:
                 self.add(copy, dt = (line, ) )

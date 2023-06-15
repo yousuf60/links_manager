@@ -112,6 +112,7 @@ class FormTab(BaseForm):
             app.add_container(tab_name)
             app.add_tab(tab_name)
             data_manager.make_file(tab_name)
+            data_manager.add("files/files.csv", dt =([tab_name + ".csv"],) )
 
             self.close()
 

@@ -84,7 +84,9 @@ class Tab(F.ButtonBehavior, F.BoxLayout, LongPress):
             if current == child.text :
                 child.bakground_coloring()
     def delete_data(self):
-        data_manager.delete_file(self.text + ".csv")
+        file = self.text + ".csv"
+        data_manager.delete_file(file)
+        data_manager - ("files/files.csv", [file])
         
 
 

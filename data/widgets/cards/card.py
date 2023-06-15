@@ -59,5 +59,5 @@ class Card(F.ButtonBehavior, F.BoxLayout, LongPress):
     def delete_data(self):
         app = App.get_running_app()
         file = app.root.ids.scrz_manager.current + ".csv"
-        data_to_delete = (file, self.link, self.text)
+        data_to_delete = (file, [self.link, self.text])
         data_manager - data_to_delete

@@ -2,6 +2,7 @@ import os
 #https://kivy.org/doc/stable/guide/environment.html
 os.environ["KIVY_IMAGE"] = "pil,sdl2"
 os.environ["KIVY_WINDOW"] = "sdl2"
+
 from kivy.app import App
 from kivy.factory import Factory as F
 from kivy.clock import mainthread
@@ -21,10 +22,22 @@ import asyncio
 from time import sleep
 
 
-the_copy_directory = "data/tabs/copy"
-if not os.path.exists(the_copy_directory):
-    os.mkdir(the_copy_directory)
-del the_copy_directory
+dir = "data/tabs/copy"
+
+if not os.path.exists(dir):
+    os.mkdir(dir)
+
+dir = "data/tabs/files"
+
+if not os.path.exists(dir):
+    os.mkdir(dir)
+
+dir = "data/tabs/copy/files"
+
+if not os.path.exists(dir):
+    os.mkdir(dir)
+
+del dir
 
 class scrz(F.Screen):pass
 
@@ -37,9 +50,13 @@ class Main(App, DataManager):
     new_tab = None
     def on_start(self):
         def a():
-            
-            for x in  self.files_list():
-                # print(x)
+            listdir = self.files_list()
+            for x in  self.read("files/files.csv"):
+                x = x[0]
+                if x not in listdir:
+                    self - ("files/files.csv", [x])
+                    continue
+                print(x)
                 file = x
                 x = os.path.splitext(file)[0]
                 self.add_tab(x)
