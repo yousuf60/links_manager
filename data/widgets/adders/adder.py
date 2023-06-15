@@ -31,7 +31,7 @@ Builder.load_string("""
         
 <AddTab>:
     y:self.parent.parent.ids.bar.y - \
-    self.parent.parent.ids.bar.height /2 +dp(2) #10 # Window.size[1] - 80
+    self.parent.parent.ids.bar.height /2 +dp(15) #10 # Window.size[1] - 80
 
 """)
 
