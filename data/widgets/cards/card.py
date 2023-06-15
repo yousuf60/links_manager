@@ -25,6 +25,12 @@ Builder.load_string("""
     Label:
         id: lbl
         text: ""
+        text_size: self.width, None
+        size_hint: 1, None
+        haight: self.texture_size[1]
+        pos_hint: {"center_y": .5}
+        halign: "center"
+ 
 """)
 
 

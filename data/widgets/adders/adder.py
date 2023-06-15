@@ -30,13 +30,14 @@ Builder.load_string("""
         size: dp(20), dp(20)
         
 <AddTab>:
-    y:self.parent.parent.ids.bar.y - 10 # Window.size[1] - 80
+    y:self.parent.parent.ids.bar.y - \
+    self.parent.parent.ids.bar.height /2 +dp(2) #10 # Window.size[1] - 80
 
 """)
 
 
 class BaseAdder(F.ButtonBehavior, F.FloatLayout):
-    # xy of size >>line 8
+    # xy of size >>line 15
     xy = F.NumericProperty(35)
 
 

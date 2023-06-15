@@ -17,6 +17,9 @@ data_manager = DataManager()
 Builder.load_string("""
 <MyButton>:
     pos_hint: {"center_x": .5, "center_y": .5}
+    color: 0, 0, 0, 1
+    size_hint: None, 1
+    width: dp(40)
 
 <MyInput@TextInput>:
     padding: dp(20)
@@ -73,18 +76,14 @@ Builder.load_string("""
             
             
 <FormCard@BaseForm>:
-    first_input_hint_text: "Name: " + str(int(Window.width) //19) + " character"
-    first_input_foreground_color: (1, 1, 1, 1) if len(root.ids.first_input.text) <= int(Window.width) //19 else (1, 0, 0, 1)
+    first_input_hint_text: "Name: " + str(root.card_text_limit()) + " character"
+    first_input_foreground_color: (1, 1, 1, 1) if len(root.ids.first_input.text) <= root.card_text_limit() else (1, 0, 0, 1)
 
 <TabCard@BaseForm>:
     first_input_foreground_color: (1, 1, 1, 1)
 """)
 
-class MyButton(F.ButtonBehavior, F.Label):
-    color = F.ListProperty([0, 0, 0, 1])
-    size_hint = F.ListProperty([None, 1])
-    width = F.NumericProperty(60)
-    
+class MyButton(F.ButtonBehavior, F.Label):pass
     
 class MyInput(F.TextInput):pass
 
@@ -95,6 +94,8 @@ class BaseForm(F.ButtonBehavior, F.BoxLayout):
     def close(self):
         self.parent.adder_here = False
         self.parent.remove_widget(self)
+    def card_text_limit(self):
+        return int(Window.width) //10
 
 class FormTab(BaseForm):
     def __init__(self, *args, **kwargs):
@@ -122,17 +123,13 @@ class FormTab(BaseForm):
                 return True
         return False
 class FormCard(BaseForm):
-    # first_input_hint_text = StringProperty("Name: " + str(int(Window.width) //19) + " character")
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        # self.ids.first_input.hint_text = 
     def add(self):
         card_name = self.ids.first_input.text
         link = self.ids.second_input.text
         screen_manager = self.parent.parent.ids.scrz_manager
         current_screen = screen_manager.current
-        card_text_length = int(Window.width) //19
+        card_text_length = self.card_text_limit()
         is_right_limit = len(card_name) <= card_text_length
         if all([link, card_name, current_screen, is_right_limit]):
             if self.data_checker(link, card_name, current_screen):
