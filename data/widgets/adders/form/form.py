@@ -119,6 +119,9 @@ class FormTab(BaseForm):
 
 
     def tab_text_checker(self, tab_name, app):
+        #True will break 
+        if "/" in tab_name:
+            return True
         for tab in app.root.ids.bar_box.children:
             if tab.text == tab_name:
                 return True
